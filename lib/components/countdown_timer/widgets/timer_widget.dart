@@ -16,6 +16,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   void toggleTimer() {
     if (!_controller.isStarted) {
       _controller.start();
+      return;
     } else if (_controller.isResumed) {
       _controller.pause();
       _controller.isResumed = false;
