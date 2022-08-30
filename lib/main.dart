@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_timer_flutter/pages/root_page.dart';
+import 'package:pomodoro_timer_flutter/screens/root_page.dart';
 
 void main() {
   runApp(const MyApp());

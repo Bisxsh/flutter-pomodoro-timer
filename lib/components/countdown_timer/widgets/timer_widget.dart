@@ -1,5 +1,5 @@
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key});
@@ -9,70 +9,55 @@ class TimerWidget extends StatefulWidget {
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
-  Timer _timer = Timer(const Duration(seconds: 0), () {});
-  double _timePercentage = 0.5;
-  int _timeRemaining = 30;
+  String timeRemaining = "";
   final int _startingTime = 30;
+  final CountDownController _controller = CountDownController();
 
-  void startTimer() {
-    if (_timer.isActive) {
-      pauseTimer();
-      return;
+  void toggleTimer() {
+    if (!_controller.isStarted) {
+      _controller.start();
+    } else if (_controller.isResumed) {
+      _controller.pause();
+      _controller.isResumed = false;
+    } else {
+      _controller.resume();
+      _controller.isPaused = false;
     }
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer timer) {
-        debugPrint('Time Remaining: ${(_timePercentage)}');
-        if (_timeRemaining == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _timeRemaining--;
-            _timePercentage = _timeRemaining / _startingTime;
-          });
-        }
-      },
-    );
-  }
-
-  void pauseTimer() {
-    _timer.cancel();
   }
 
   void resetTimer() {
-    pauseTimer();
-    setState(() {
-      _timeRemaining = _startingTime;
-      _timePercentage = 1.0;
-    });
+    _controller.restart(duration: _startingTime);
+    _controller.pause();
   }
 
   @override
   void dispose() {
-    resetTimer();
+    _controller.reset();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO wrap in animatedBuilder maybe
     return GestureDetector(
-      onTap: () => {startTimer()},
+      onTap: () => {toggleTimer()},
       onLongPress: () => {resetTimer()},
-      child: Container(
+      child: CircularCountDownTimer(
         width: 250,
         height: 250,
-        margin: const EdgeInsets.all(50),
-        child: CircularProgressIndicator(
-          semanticsLabel: "Time Remaining",
-          semanticsValue: '${(_timeRemaining)} seconds',
-          strokeWidth: 10.0,
-          color: Colors.white,
-          backgroundColor: Colors.grey,
-          value: _timePercentage,
-        ),
+        duration: 30,
+        fillColor: Colors.white,
+        ringColor: Colors.grey,
+        isReverse: true,
+        isReverseAnimation: true,
+        strokeWidth: 10.0,
+        strokeCap: StrokeCap.round,
+        textFormat: "mm:ss",
+        textStyle: const TextStyle(color: Colors.white),
+        onChange: (String timeStamp) {
+          timeRemaining = timeStamp;
+        },
+        controller: _controller,
+        autoStart: false,
       ),
     );
   }
