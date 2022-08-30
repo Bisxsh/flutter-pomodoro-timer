@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_timer_flutter/screens/timer/timer_page.dart';
 import 'package:pomodoro_timer_flutter/components/color_util.dart';
+import 'package:pomodoro_timer_flutter/screens/timer/timer_page.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});

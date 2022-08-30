@@ -32,7 +32,7 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   void dispose() {
-    _controller.reset();
+    // _controller.reset();
     super.dispose();
   }
 
@@ -52,7 +52,7 @@ class _TimerWidgetState extends State<TimerWidget> {
         strokeWidth: 10.0,
         strokeCap: StrokeCap.round,
         textFormat: "mm:ss",
-        textStyle: const TextStyle(color: Colors.white),
+        textStyle: const TextStyle(color: Colors.transparent),
         onChange: (String timeStamp) {
           timeRemaining = timeStamp;
         },
