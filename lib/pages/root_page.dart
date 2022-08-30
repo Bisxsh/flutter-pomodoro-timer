@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_timer_flutter/pages/timer_page.dart';
+import 'package:pomodoro_timer_flutter/pages/timer/timer_page.dart';
 import 'package:pomodoro_timer_flutter/components/color_util.dart';
 
 class RootPage extends StatefulWidget {
@@ -17,8 +17,9 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: HexColor('#4a4b4f'),
+        backgroundColor: HexColor.getBackgroundColor(),
         toolbarHeight: 0,
+        automaticallyImplyLeading: false,
       ),
       body: pages[currentPage],
     );

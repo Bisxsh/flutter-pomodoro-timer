@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_timer_flutter/pages/root_page.dart';
-import 'package:pomodoro_timer_flutter/pages/timer_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
+      theme: ThemeData(primarySwatch: Colors.grey),
       home: const RootPage(),
     );
   }
