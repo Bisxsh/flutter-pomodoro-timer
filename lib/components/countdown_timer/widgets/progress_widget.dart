@@ -25,9 +25,13 @@ class _ProgressWidgetState extends State<ProgressWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: getIndicators(),
+    return Container(
+      margin: const EdgeInsets.only(left: 27),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: getIndicators(),
+      ),
     );
   }
 }
@@ -39,7 +43,6 @@ class ProgressIndicator extends StatelessWidget {
   final bool? invisible;
 
   Color getColor() {
-    debugPrint('$invisible');
     if (invisible ?? false) return Colors.transparent;
     return active ? Colors.white : Colors.grey;
   }

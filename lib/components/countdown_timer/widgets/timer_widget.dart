@@ -38,26 +38,29 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => {toggleTimer()},
-      onLongPress: () => {resetTimer()},
-      child: CircularCountDownTimer(
-        width: 250,
-        height: 250,
-        duration: 30,
-        fillColor: Colors.white,
-        ringColor: Colors.grey,
-        isReverse: true,
-        isReverseAnimation: true,
-        strokeWidth: 10.0,
-        strokeCap: StrokeCap.round,
-        textFormat: "mm:ss",
-        textStyle: const TextStyle(color: Colors.transparent),
-        onChange: (String timeStamp) {
-          timeRemaining = timeStamp;
-        },
-        controller: _controller,
-        autoStart: false,
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: GestureDetector(
+        onTap: () => {toggleTimer()},
+        onLongPress: () => {resetTimer()},
+        child: CircularCountDownTimer(
+          width: 250,
+          height: 250,
+          duration: 30,
+          fillColor: Colors.white,
+          ringColor: Colors.grey,
+          isReverse: true,
+          isReverseAnimation: true,
+          strokeWidth: 10.0,
+          strokeCap: StrokeCap.round,
+          textFormat: "mm:ss",
+          textStyle: const TextStyle(color: Colors.transparent),
+          onChange: (String timeStamp) {
+            timeRemaining = timeStamp;
+          },
+          controller: _controller,
+          autoStart: false,
+        ),
       ),
     );
   }
