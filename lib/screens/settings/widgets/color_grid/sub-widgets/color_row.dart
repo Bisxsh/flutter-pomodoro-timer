@@ -11,7 +11,10 @@ class ColorRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> getChildren() {
       return colors
-          .map<Widget>((e) => ColourItemWidget(color: HexColor(e)))
+          .map<Widget>((e) => ColourItemWidget(
+                color: HexColor(e),
+                selected: e == "#4A4B4F",
+              ))
           .toList();
     }
 
