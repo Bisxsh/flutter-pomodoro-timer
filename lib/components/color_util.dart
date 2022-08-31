@@ -10,4 +10,8 @@ class HexColor extends Color {
   }
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+
+  static HexColor getBackgroundColor() {
+    return HexColor('#4a4b4f');
+  }
 }
