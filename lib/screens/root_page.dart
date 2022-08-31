@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_timer_flutter/components/color_util.dart';
 import 'package:pomodoro_timer_flutter/components/menu_widget_anim.dart';
+import 'package:pomodoro_timer_flutter/screens/settings/settings_page.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/timer_page.dart';
 
 class RootPage extends StatefulWidget {
@@ -11,8 +12,15 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  int currentPage = 0;
-  List<Widget> pages = [const TimerPage()];
+  bool timerShown = true;
+  List<Widget> pages = [const TimerPage(), const SettingsPage()];
+
+  void togglePage() {
+    debugPrint("HERE");
+    setState(() {
+      timerShown = !timerShown;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +34,8 @@ class _RootPageState extends State<RootPage> {
         color: HexColor.getBackgroundColor(),
         child: Column(
           children: [
-            const AnimMenuWidget(),
-            Expanded(child: pages[currentPage]),
+            AnimMenuWidget(onPress: togglePage),
+            Expanded(child: pages[timerShown ? 0 : 1]),
           ],
         ),
       ),

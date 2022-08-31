@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AnimMenuWidget extends StatefulWidget {
-  const AnimMenuWidget({super.key});
+  final VoidCallback onPress;
+
+  const AnimMenuWidget({super.key, required this.onPress});
 
   @override
   State<AnimMenuWidget> createState() => _AnimMenuWidgetState();
@@ -33,6 +35,7 @@ class _AnimMenuWidgetState extends State<AnimMenuWidget>
   }
 
   animate() {
+    widget.onPress();
     if (!isOpened) {
       _animationController?.forward();
     } else {

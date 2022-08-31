@@ -1,6 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:pomodoro_timer_flutter/components/countdown_timer/widgets/play_pause_widget.dart';
+import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/play_pause_widget.dart';
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key});
