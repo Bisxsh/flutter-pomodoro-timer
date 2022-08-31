@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_timer_flutter/components/color_util.dart';
 import 'package:pomodoro_timer_flutter/components/countdown_timer/timer_display.dart';
-import 'package:pomodoro_timer_flutter/screens/timer/widgets/menu_widget.dart';
+import 'package:pomodoro_timer_flutter/components/menu_widget_anim.dart';
 
 class TimerPage extends StatefulWidget {
   const TimerPage({super.key});
@@ -15,16 +15,9 @@ class TimerPageState extends State<TimerPage> {
   Widget build(BuildContext context) {
     return Container(
       color: HexColor.getBackgroundColor(),
-      child: Column(
-        children: const [
-          MenuWidget(),
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: TimerDisplay(),
-            ),
-          ),
-        ],
+      child: const Align(
+        alignment: Alignment.center,
+        child: TimerDisplay(),
       ),
     );
   }

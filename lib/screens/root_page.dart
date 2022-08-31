@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_timer_flutter/components/color_util.dart';
+import 'package:pomodoro_timer_flutter/components/menu_widget_anim.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/timer_page.dart';
 
 class RootPage extends StatefulWidget {
@@ -21,7 +22,15 @@ class _RootPageState extends State<RootPage> {
         toolbarHeight: 0,
         automaticallyImplyLeading: false,
       ),
-      body: pages[currentPage],
+      body: Container(
+        color: HexColor.getBackgroundColor(),
+        child: Column(
+          children: [
+            const AnimMenuWidget(),
+            Expanded(child: pages[currentPage]),
+          ],
+        ),
+      ),
     );
   }
 }
