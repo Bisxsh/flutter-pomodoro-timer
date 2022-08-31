@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_timer_flutter/screens/settings/widgets/color_grid/color_grid_widget.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/widgets/int_settings_widget.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -29,7 +30,8 @@ class _SettingsPageState extends State<SettingsPage> {
             controller: TextEditingController(text: "15"),
           ),
         ],
-      )
+      ),
+      const ColorGridWidget()
     ]);
   }
 }
