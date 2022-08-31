@@ -3,16 +3,17 @@ import 'package:pomodoro_timer_flutter/screens/settings/widgets/sub-widgets/cont
 
 class IntSettingsWidget extends StatelessWidget {
   final String label;
+  final bool? removeMargin;
 
-  const IntSettingsWidget({super.key, required this.label});
+  const IntSettingsWidget({super.key, required this.label, this.removeMargin});
 
   @override
   Widget build(BuildContext context) {
     return ContainerUtil.getContainer(
         SizedBox(
-          width: 50,
+          width: 35,
           child: TextFormField(
-            style: const TextStyle(color: Colors.white, fontSize: 40),
+            style: const TextStyle(color: Colors.white, fontSize: 30),
             decoration: const InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
@@ -22,6 +23,7 @@ class IntSettingsWidget extends StatelessWidget {
                 labelStyle: TextStyle(color: Colors.white)),
           ),
         ),
-        label);
+        label,
+        removeMargin);
   }
 }

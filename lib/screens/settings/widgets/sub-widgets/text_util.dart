@@ -9,7 +9,7 @@ class TextUtil {
         message.toUpperCase(),
         style: TextStyle(
             color: HexColor("#A3A6B3"),
-            fontSize: 14.0,
+            fontSize: 12.0,
             fontWeight: FontWeight.w400),
       ),
     );
