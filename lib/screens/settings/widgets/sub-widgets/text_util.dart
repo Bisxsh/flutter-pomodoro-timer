@@ -4,7 +4,7 @@ import 'package:pomodoro_timer_flutter/components/color_util.dart';
 class TextUtil {
   static Container getOptionText(String message) {
     return Container(
-      margin: const EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(top: 10),
       child: Text(
         message.toUpperCase(),
         style: TextStyle(
