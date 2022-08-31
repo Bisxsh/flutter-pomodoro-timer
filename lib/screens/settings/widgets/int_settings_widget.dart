@@ -3,17 +3,24 @@ import 'package:pomodoro_timer_flutter/screens/settings/widgets/sub-widgets/cont
 
 class IntSettingsWidget extends StatelessWidget {
   final String label;
+  final TextEditingController controller;
   final bool? removeMargin;
 
-  const IntSettingsWidget({super.key, required this.label, this.removeMargin});
+  const IntSettingsWidget(
+      {super.key,
+      required this.label,
+      required this.controller,
+      this.removeMargin});
 
   @override
   Widget build(BuildContext context) {
     return ContainerUtil.getContainer(
         SizedBox(
-          width: 35,
+          width: 50,
           child: TextFormField(
             style: const TextStyle(color: Colors.white, fontSize: 30),
+            controller: controller,
+            textAlign: TextAlign.center,
             decoration: const InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.zero,

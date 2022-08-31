@@ -14,10 +14,20 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: const [
-          IntSettingsWidget(label: "Pomodoro"),
-          IntSettingsWidget(label: "Break", removeMargin: true),
-          IntSettingsWidget(label: "Long Break"),
+        children: [
+          IntSettingsWidget(
+            label: "Pomodoro",
+            controller: TextEditingController(text: "25"),
+          ),
+          IntSettingsWidget(
+            label: "Break",
+            controller: TextEditingController(text: "5"),
+            removeMargin: true,
+          ),
+          IntSettingsWidget(
+            label: "Long Break",
+            controller: TextEditingController(text: "15"),
+          ),
         ],
       )
     ]);
