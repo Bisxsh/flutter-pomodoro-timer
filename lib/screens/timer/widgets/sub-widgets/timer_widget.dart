@@ -40,11 +40,13 @@ class _TimerWidgetState extends State<TimerWidget> {
     }
   }
 
-  void resetTimer(int time) {
+  void resetTimer(int time, bool autoStartNext) {
     _controller.restart(duration: time);
     _controller.isPaused = false;
-    _controller.isResumed = false;
-    _controller.pause();
+    _controller.isResumed = autoStartNext;
+    if (!autoStartNext) {
+      _controller.pause();
+    }
   }
 
   TimerMode getNextMode(TimerMode mode, int sessionsComplete) {
@@ -78,11 +80,16 @@ class _TimerWidgetState extends State<TimerWidget> {
       }
     }
 
+    bool shouldAutoStart() {
+      if (mode == TimerMode.POMODORO) return userSettings.autoStartBreaks;
+      return userSettings.autoStartPomodoro;
+    }
+
     return Container(
       padding: const EdgeInsets.all(20),
       child: GestureDetector(
         onTap: () => {toggleTimer(getCurrentTime(mode))},
-        onLongPress: () => {resetTimer(getCurrentTime(mode))},
+        onLongPress: () => {resetTimer(getCurrentTime(mode), false)},
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -114,7 +121,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                 setState(() {
                   userSession.pomodorosCompleted = newPomodorosCompleted;
                   userSession.mode = newMode;
-                  resetTimer(getCurrentTime(newMode));
+                  resetTimer(getCurrentTime(newMode), shouldAutoStart());
                 });
               },
               controller: _controller,
