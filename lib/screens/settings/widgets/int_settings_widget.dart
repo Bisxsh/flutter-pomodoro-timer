@@ -41,24 +41,26 @@ class IntSettingsWidget extends StatelessWidget {
     }
 
     return ContainerUtil.getContainer(
-        SizedBox(
-          width: 50,
-          child: TextFormField(
-            keyboardType: TextInputType.number,
-            onFieldSubmitted: (text) => {setValue(text)},
-            style: const TextStyle(color: Colors.white, fontSize: 30),
-            controller: controller,
-            textAlign: TextAlign.center,
-            decoration: const InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.zero,
-                border: InputBorder.none,
-                hintText: "25",
-                hintStyle: TextStyle(color: Colors.grey),
-                labelStyle: TextStyle(color: Colors.white)),
-          ),
+      SizedBox(
+        width: 50,
+        child: TextFormField(
+          keyboardType: TextInputType.number,
+          onFieldSubmitted: (text) => {setValue(text)},
+          style: const TextStyle(color: Colors.white, fontSize: 30),
+          controller: controller,
+          textAlign: TextAlign.center,
+          decoration: const InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.zero,
+              border: InputBorder.none,
+              hintText: "25",
+              hintStyle: TextStyle(color: Colors.grey),
+              labelStyle: TextStyle(color: Colors.white)),
         ),
-        label,
-        removeMargin);
+      ),
+      label,
+      removeMargin,
+      context.watch<UserSettings>().selectedColor,
+    );
   }
 }

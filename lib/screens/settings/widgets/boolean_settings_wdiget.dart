@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_timer_flutter/providers/user_settings_provider.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/widgets/sub-widgets/container_util.dart';
 import 'dart:math' as math;
+
+import 'package:provider/provider.dart';
 
 class BooleanSettingsWidget extends StatelessWidget {
   final String label;
@@ -34,6 +37,7 @@ class BooleanSettingsWidget extends StatelessWidget {
       ),
       "Vibrate",
       null,
+      context.watch<UserSettings>().selectedColor,
     );
   }
 }

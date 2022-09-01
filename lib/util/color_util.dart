@@ -10,4 +10,7 @@ class HexColor extends Color {
   }
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+
+  static Color changeColorHue(Color color) =>
+      HSLColor.fromColor(color).withLightness(0.4).toColor();
 }
