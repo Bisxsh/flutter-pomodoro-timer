@@ -20,44 +20,47 @@ class UserSettings with ChangeNotifier {
   bool get showNotifications => _showNotifications;
   bool get keepPhoneAwake => _keepPhoneAwake;
 
-  set setPomodoroTime(int value) {
+  set pomodoroTime(int value) {
     _pomodoroTime = value;
+    notifyListeners();
   }
 
-  set setBreakTime(int value) {
+  set breakTime(int value) {
     _breakTime = value;
+    notifyListeners();
   }
 
-  set setLongBreakTime(int value) {
+  set longBreakTime(int value) {
     _longBreakTime = value;
+    notifyListeners();
   }
 
-  set setSelectedColor(selectedColor) {
+  set selectedColor(selectedColor) {
     _selectedColor = selectedColor;
     notifyListeners();
   }
 
-  set setVibrate(vibrate) {
+  set vibrate(vibrate) {
     _vibrate = vibrate;
     notifyListeners();
   }
 
-  set setAutoStartBreaks(autoStartBreaks) {
+  set autoStartBreaks(autoStartBreaks) {
     _autoStartBreaks = autoStartBreaks;
     notifyListeners();
   }
 
-  set setAutoStartPomodoro(autoStartPomodoro) {
+  set autoStartPomodoro(autoStartPomodoro) {
     _autoStartPomodoro = autoStartPomodoro;
     notifyListeners();
   }
 
-  set setShowNotifications(showNotifications) {
+  set showNotifications(showNotifications) {
     _showNotifications = showNotifications;
     notifyListeners();
   }
 
-  set setKeepPhoneAwake(keepPhoneAwake) {
+  set keepPhoneAwake(keepPhoneAwake) {
     _keepPhoneAwake = keepPhoneAwake;
     notifyListeners();
   }

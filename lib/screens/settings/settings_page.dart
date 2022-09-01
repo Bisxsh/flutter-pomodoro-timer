@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/widgets/boolean_settings_wdiget.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/widgets/color_grid/color_grid_widget.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/widgets/int_settings_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/user_settings_provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -13,6 +16,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    UserSettings userSettings = context.watch<UserSettings>();
+
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: SingleChildScrollView(
@@ -24,16 +29,19 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 IntSettingsWidget(
                   label: "Pomodoro",
-                  controller: TextEditingController(text: "25"),
+                  controller: TextEditingController(
+                      text: '${userSettings.pomodoroTime}'),
                 ),
                 IntSettingsWidget(
                   label: "Break",
-                  controller: TextEditingController(text: "5"),
+                  controller:
+                      TextEditingController(text: "${userSettings.breakTime}"),
                   removeMargin: true,
                 ),
                 IntSettingsWidget(
                   label: "Long Break",
-                  controller: TextEditingController(text: "15"),
+                  controller: TextEditingController(
+                      text: "${userSettings.longBreakTime}"),
                 ),
               ],
             ),

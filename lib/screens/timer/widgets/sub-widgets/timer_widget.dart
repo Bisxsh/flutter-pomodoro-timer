@@ -63,20 +63,16 @@ class _TimerWidgetState extends State<TimerWidget> {
     UserSettings userSettings = context.watch<UserSettings>();
     UserSession userSession = context.watch<UserSession>();
 
-    int pomodoroTime = userSettings.pomodoroTime * 1;
-    int breakTime = userSettings.breakTime * 1;
-    int longBreakTime = userSettings.longBreakTime * 1;
-
     TimerMode mode = userSession.mode;
 
     int getCurrentTime(TimerMode mode) {
       switch (mode) {
         case TimerMode.POMODORO:
-          return pomodoroTime;
+          return userSettings.pomodoroTime * 1;
         case TimerMode.BREAK:
-          return breakTime;
+          return userSettings.breakTime * 1;
         case TimerMode.LONG_BREAK:
-          return longBreakTime;
+          return userSettings.longBreakTime * 1;
       }
     }
 
@@ -88,8 +84,8 @@ class _TimerWidgetState extends State<TimerWidget> {
     return Container(
       padding: const EdgeInsets.all(20),
       child: GestureDetector(
-        onTap: () => {toggleTimer(getCurrentTime(mode))},
-        onLongPress: () => {resetTimer(getCurrentTime(mode), false)},
+        onTap: () => toggleTimer(getCurrentTime(mode)),
+        onLongPress: () => resetTimer(getCurrentTime(mode), false),
         child: Stack(
           alignment: Alignment.center,
           children: [
