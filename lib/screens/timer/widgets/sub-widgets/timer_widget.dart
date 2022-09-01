@@ -79,11 +79,11 @@ class _TimerWidgetState extends State<TimerWidget> {
     int getCurrentTime(TimerMode mode) {
       switch (mode) {
         case TimerMode.POMODORO:
-          return userSettings.pomodoroTime * 1;
+          return userSettings.pomodoroTime * 60;
         case TimerMode.BREAK:
-          return userSettings.breakTime * 1;
+          return userSettings.breakTime * 60;
         case TimerMode.LONG_BREAK:
-          return userSettings.longBreakTime * 1;
+          return userSettings.longBreakTime * 60;
       }
     }
 
