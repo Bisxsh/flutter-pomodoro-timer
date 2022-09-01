@@ -3,16 +3,16 @@ A simple Pomodoro app I made when learning flutter. Design inspired by the [Pomo
 
 I also created this app using react-native (check it out [here](https://github.com/Bisxsh/react-native-pomodoro-timer) 😉) so I could compare and contrast the developer experience between the two cross-platform mobile frameworks.
 
-# How to run using npm
+# How to run using flutter
 ```
 # clone the project and cd into it
 git clone https://github.com/Bisxsh/react-native-pomodoro-timer.git;
 
 # install dependencies
-npm install
+flutter pub get
 
 # start development environment
-npm start
+flutter run
 ```
 
 # Screenshots
