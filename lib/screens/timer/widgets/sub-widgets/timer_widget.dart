@@ -13,7 +13,6 @@ class TimerWidget extends StatefulWidget {
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
-  String timeRemaining = "";
   final CountDownController _controller = CountDownController();
 
   void toggleTimer(int time) {
@@ -109,9 +108,9 @@ class _TimerWidgetState extends State<TimerWidget> {
               strokeWidth: 10.0,
               strokeCap: StrokeCap.round,
               textFormat: "mm:ss",
-              textStyle: const TextStyle(color: Colors.white),
+              textStyle: const TextStyle(color: Colors.transparent),
               onChange: (String timeStamp) {
-                timeRemaining = timeStamp;
+                // userSession.timeRemaining = timeStamp;
               },
               onComplete: () {
                 int newPomodorosCompleted = userSession.pomodorosCompleted;
