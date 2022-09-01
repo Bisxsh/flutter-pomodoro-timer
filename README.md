@@ -16,5 +16,5 @@ flutter run
 ```
 
 # Screenshots
-![image](https://user-images.githubusercontent.com/53183466/185922041-77b63b84-b641-4c70-9976-9aa58d1ae30b.png)
-![image](https://user-images.githubusercontent.com/53183466/185922072-ddf182de-9502-41fa-a4f3-ac39c8c273e6.png)
+![image](https://user-images.githubusercontent.com/53183466/187965036-94290988-9f87-46c8-a866-1bafa37567c1.png)
+![image](https://user-images.githubusercontent.com/53183466/187965139-2602341b-087a-47b4-8c0d-e414d618b594.png)
