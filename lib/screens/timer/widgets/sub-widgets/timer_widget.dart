@@ -1,5 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodoro_timer_flutter/providers/user_session_provider.dart';
 import 'package:pomodoro_timer_flutter/providers/user_settings_provider.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/play_pause_widget.dart';
 import 'package:provider/provider.dart';
@@ -39,29 +40,49 @@ class _TimerWidgetState extends State<TimerWidget> {
     }
   }
 
-  void resetTimer() {
-    _controller.reset();
+  void resetTimer(int time) {
+    _controller.restart(duration: time);
     _controller.isPaused = false;
     _controller.isResumed = false;
+    _controller.pause();
   }
 
-  @override
-  void dispose() {
-    // _controller.reset();
-    super.dispose();
+  TimerMode getNextMode(TimerMode mode, int sessionsComplete) {
+    if (mode != TimerMode.POMODORO) {
+      return TimerMode.POMODORO;
+    }
+
+    if (sessionsComplete % 4 == 0) return TimerMode.LONG_BREAK;
+    return TimerMode.BREAK;
   }
 
   @override
   Widget build(BuildContext context) {
-    int pomodoroTime = context.watch<UserSettings>().pomodoroTime * 60;
-    int breakTime = context.watch<UserSettings>().breakTime * 60;
-    int longBreakTime = context.watch<UserSettings>().longBreakTime * 60;
+    UserSettings userSettings = context.watch<UserSettings>();
+    UserSession userSession = context.watch<UserSession>();
+
+    int pomodoroTime = userSettings.pomodoroTime * 1;
+    int breakTime = userSettings.breakTime * 1;
+    int longBreakTime = userSettings.longBreakTime * 1;
+
+    TimerMode mode = userSession.mode;
+
+    int getCurrentTime(TimerMode mode) {
+      switch (mode) {
+        case TimerMode.POMODORO:
+          return pomodoroTime;
+        case TimerMode.BREAK:
+          return breakTime;
+        case TimerMode.LONG_BREAK:
+          return longBreakTime;
+      }
+    }
 
     return Container(
       padding: const EdgeInsets.all(20),
       child: GestureDetector(
-        onTap: () => {toggleTimer(pomodoroTime)},
-        onLongPress: () => {resetTimer()},
+        onTap: () => {toggleTimer(getCurrentTime(mode))},
+        onLongPress: () => {resetTimer(getCurrentTime(mode))},
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -72,8 +93,7 @@ class _TimerWidgetState extends State<TimerWidget> {
             CircularCountDownTimer(
               width: 250,
               height: 250,
-              duration: pomodoroTime,
-              initialDuration: pomodoroTime,
+              duration: getCurrentTime(mode),
               autoStart: false,
               fillColor: Colors.white,
               ringColor: Colors.grey,
@@ -82,14 +102,19 @@ class _TimerWidgetState extends State<TimerWidget> {
               strokeWidth: 10.0,
               strokeCap: StrokeCap.round,
               textFormat: "mm:ss",
-              textStyle: const TextStyle(color: Colors.transparent),
+              textStyle: const TextStyle(color: Colors.white),
               onChange: (String timeStamp) {
                 timeRemaining = timeStamp;
               },
               onComplete: () {
+                int newPomodorosCompleted = userSession.pomodorosCompleted;
+                if (mode == TimerMode.POMODORO) newPomodorosCompleted++;
+                TimerMode newMode =
+                    getNextMode(userSession.mode, newPomodorosCompleted);
                 setState(() {
-                  _controller.reset();
-                  _controller.isStarted = false;
+                  userSession.pomodorosCompleted = newPomodorosCompleted;
+                  userSession.mode = newMode;
+                  resetTimer(getCurrentTime(newMode));
                 });
               },
               controller: _controller,
