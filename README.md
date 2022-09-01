@@ -6,7 +6,7 @@ I also created this app using react-native (check it out [here](https://github.c
 # How to run using flutter
 ```
 # clone the project and cd into it
-git clone https://github.com/Bisxsh/react-native-pomodoro-timer.git;
+git clone https://github.com/Bisxsh/flutter-pomodoro-timer.git;
 
 # install dependencies
 flutter pub get
