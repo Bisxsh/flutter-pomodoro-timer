@@ -12,6 +12,35 @@ class BooleanSettingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Dart with flutter doesn't support reflection, find better way to construct method
+    UserSettings userSettings = context.watch<UserSettings>();
+    bool getSetting(var val) {
+      switch (label.toLowerCase()) {
+        case "vibrate":
+          if (val != null) userSettings.vibrate = val;
+          return userSettings.vibrate;
+
+        case "autostart breaks":
+          if (val != null) userSettings.autoStartBreaks = val;
+          return userSettings.autoStartBreaks;
+
+        case "autostart pomodoro":
+          if (val != null) userSettings.autoStartPomodoro = val;
+          return userSettings.autoStartPomodoro;
+
+        case "show notifications":
+          if (val != null) userSettings.showNotifications = val;
+          return userSettings.showNotifications;
+
+        case "keep phone awake":
+          if (val != null) userSettings.keepPhoneAwake = val;
+          return userSettings.keepPhoneAwake;
+
+        default:
+          return false;
+      }
+    }
+
     return ContainerUtil.getContainer(
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -21,23 +50,29 @@ class BooleanSettingsWidget extends StatelessWidget {
             margin: const EdgeInsets.only(right: 15),
             child: Transform.rotate(
               angle: 45 * math.pi / 180,
-              child: const Icon(
-                Icons.add_circle_rounded,
-                color: Colors.white,
-                size: 48.0,
+              child: GestureDetector(
+                onTap: () => getSetting(false),
+                child: Icon(
+                  Icons.add_circle_rounded,
+                  color: ((getSetting(null)) ? Colors.grey : Colors.white),
+                  size: 48.0,
+                ),
               ),
             ),
           ),
-          const Icon(
-            Icons.check_circle_rounded,
-            color: Colors.white,
-            size: 48.0,
+          GestureDetector(
+            onTap: () => getSetting(true),
+            child: Icon(
+              Icons.check_circle_rounded,
+              color: ((getSetting(null)) ? Colors.white : Colors.grey),
+              size: 48.0,
+            ),
           ),
         ],
       ),
-      "Vibrate",
+      label,
       null,
-      context.watch<UserSettings>().selectedColor,
+      userSettings.selectedColor,
     );
   }
 }
