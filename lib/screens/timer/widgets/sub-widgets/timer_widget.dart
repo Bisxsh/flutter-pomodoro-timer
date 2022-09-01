@@ -1,6 +1,11 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodoro_timer_flutter/providers/user_session_provider.dart';
+import 'package:pomodoro_timer_flutter/providers/user_settings_provider.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/play_pause_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:vibration/vibration.dart';
+import 'package:wakelock/wakelock.dart';
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key});
@@ -10,13 +15,12 @@ class TimerWidget extends StatefulWidget {
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
-  String timeRemaining = "";
-  final int _startingTime = 30;
   final CountDownController _controller = CountDownController();
 
-  void toggleTimer() {
+  void toggleTimer(int time) {
     if (!_controller.isStarted) {
-      _controller.restart(duration: 30);
+      _controller.restart(duration: time);
+      Wakelock.enable();
 
       setState(() {
         _controller.isStarted = true;
@@ -25,12 +29,14 @@ class _TimerWidgetState extends State<TimerWidget> {
       return;
     } else if (_controller.isResumed) {
       _controller.pause();
+      Wakelock.disable();
 
       setState(() {
         _controller.isResumed = false;
       });
     } else {
       _controller.resume();
+      Wakelock.enable();
 
       setState(() {
         _controller.isPaused = false;
@@ -38,25 +44,59 @@ class _TimerWidgetState extends State<TimerWidget> {
     }
   }
 
-  void resetTimer() {
-    _controller.reset();
+  void resetTimer(int time, bool autoStartNext) {
+    _controller.restart(duration: time);
     _controller.isPaused = false;
-    _controller.isResumed = false;
+    _controller.isResumed = autoStartNext;
+    if (!autoStartNext) {
+      _controller.pause();
+      _controller.isStarted = false;
+    }
   }
 
-  @override
-  void dispose() {
-    // _controller.reset();
-    super.dispose();
+  TimerMode getNextMode(TimerMode mode, int sessionsComplete) {
+    if (mode != TimerMode.POMODORO) {
+      return TimerMode.POMODORO;
+    }
+
+    if (sessionsComplete % 4 == 0) return TimerMode.LONG_BREAK;
+    return TimerMode.BREAK;
+  }
+
+  void vibrate() async {
+    if (await Vibration.hasVibrator() ?? false) {
+      Vibration.vibrate(duration: 1000);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    UserSettings userSettings = context.watch<UserSettings>();
+    UserSession userSession = context.watch<UserSession>();
+
+    TimerMode mode = userSession.mode;
+
+    int getCurrentTime(TimerMode mode) {
+      switch (mode) {
+        case TimerMode.POMODORO:
+          return userSettings.pomodoroTime * 60;
+        case TimerMode.BREAK:
+          return userSettings.breakTime * 60;
+        case TimerMode.LONG_BREAK:
+          return userSettings.longBreakTime * 60;
+      }
+    }
+
+    bool shouldAutoStart() {
+      if (mode == TimerMode.POMODORO) return userSettings.autoStartBreaks;
+      return userSettings.autoStartPomodoro;
+    }
+
     return Container(
       padding: const EdgeInsets.all(20),
       child: GestureDetector(
-        onTap: () => {toggleTimer()},
-        onLongPress: () => {resetTimer()},
+        onTap: () => toggleTimer(getCurrentTime(mode)),
+        onLongPress: () => resetTimer(getCurrentTime(mode), false),
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -67,9 +107,8 @@ class _TimerWidgetState extends State<TimerWidget> {
             CircularCountDownTimer(
               width: 250,
               height: 250,
-              duration: 30,
+              duration: getCurrentTime(mode),
               autoStart: false,
-              initialDuration: 30,
               fillColor: Colors.white,
               ringColor: Colors.grey,
               isReverse: true,
@@ -79,12 +118,19 @@ class _TimerWidgetState extends State<TimerWidget> {
               textFormat: "mm:ss",
               textStyle: const TextStyle(color: Colors.transparent),
               onChange: (String timeStamp) {
-                timeRemaining = timeStamp;
+                // userSession.timeRemaining = timeStamp;
               },
               onComplete: () {
+                if (userSettings.vibrate) vibrate();
+                int newPomodorosCompleted = userSession.pomodorosCompleted;
+                if (mode == TimerMode.POMODORO) newPomodorosCompleted++;
+                TimerMode newMode =
+                    getNextMode(userSession.mode, newPomodorosCompleted);
+
                 setState(() {
-                  _controller.reset();
-                  _controller.isStarted = false;
+                  userSession.pomodorosCompleted = newPomodorosCompleted;
+                  userSession.mode = newMode;
+                  resetTimer(getCurrentTime(newMode), shouldAutoStart());
                 });
               },
               controller: _controller,

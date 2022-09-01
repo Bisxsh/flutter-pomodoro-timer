@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_timer_flutter/components/color_util.dart';
+import 'package:pomodoro_timer_flutter/providers/user_session_provider.dart';
+import 'package:pomodoro_timer_flutter/providers/user_settings_provider.dart';
 import 'package:pomodoro_timer_flutter/components/menu_widget_anim.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/settings_page.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/timer_page.dart';
+import 'package:provider/provider.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -16,7 +18,6 @@ class _RootPageState extends State<RootPage> {
   List<Widget> pages = [const TimerPage(), const SettingsPage()];
 
   void togglePage() {
-    debugPrint("HERE");
     setState(() {
       timerShown = !timerShown;
     });
@@ -26,16 +27,21 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: HexColor.getBackgroundColor(),
+        backgroundColor: context.watch<UserSettings>().selectedColor,
         toolbarHeight: 0,
         automaticallyImplyLeading: false,
       ),
       body: Container(
-        color: HexColor.getBackgroundColor(),
+        color: context.watch<UserSettings>().selectedColor,
         child: Column(
           children: [
             AnimMenuWidget(onPress: togglePage),
-            Expanded(child: pages[timerShown ? 0 : 1]),
+            MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => UserSession()),
+              ],
+              child: Expanded(child: pages[timerShown ? 0 : 1]),
+            ),
           ],
         ),
       ),

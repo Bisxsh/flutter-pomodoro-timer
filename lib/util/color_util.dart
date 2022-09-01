@@ -4,14 +4,13 @@ class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll("#", "");
     if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
+      hexColor = "FF$hexColor";
     }
     return int.parse(hexColor, radix: 16);
   }
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 
-  static HexColor getBackgroundColor() {
-    return HexColor('#4a4b4f');
-  }
+  static Color changeColorHue(Color color) =>
+      HSLColor.fromColor(color).withLightness(0.4).toColor();
 }
