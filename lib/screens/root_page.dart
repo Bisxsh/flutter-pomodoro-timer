@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_timer_flutter/components/color_util.dart';
+import 'package:pomodoro_timer_flutter/util/color_util.dart';
 import 'package:pomodoro_timer_flutter/components/menu_widget_anim.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/settings_page.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/timer_page.dart';
