@@ -1,16 +1,20 @@
-# pomodoro_timer_flutter
+# flutter-pomodoro-timer
+A simple Pomodoro app I made when learning flutter. Design inspired by the [Pomodoro Timer app by AppFx](https://play.google.com/store/apps/details?id=com.pomodrone.app&hl=en_GB&gl=US)
 
-A new Flutter project.
+I also created this app using react-native (check it out [here](https://github.com/Bisxsh/react-native-pomodoro-timer) 😉) so I could compare and contrast the developer experience between the two cross-platform mobile frameworks.
 
-## Getting Started
+# How to run using npm
+```
+# clone the project and cd into it
+git clone https://github.com/Bisxsh/react-native-pomodoro-timer.git;
 
-This project is a starting point for a Flutter application.
+# install dependencies
+npm install
 
-A few resources to get you started if this is your first Flutter project:
+# start development environment
+npm start
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Screenshots
+![image](https://user-images.githubusercontent.com/53183466/185922041-77b63b84-b641-4c70-9976-9aa58d1ae30b.png)
+![image](https://user-images.githubusercontent.com/53183466/185922072-ddf182de-9502-41fa-a4f3-ac39c8c273e6.png)
