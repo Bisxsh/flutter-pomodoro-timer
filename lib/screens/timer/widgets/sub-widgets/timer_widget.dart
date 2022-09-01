@@ -5,6 +5,7 @@ import 'package:pomodoro_timer_flutter/providers/user_settings_provider.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/play_pause_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
+import 'package:wakelock/wakelock.dart';
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key});
@@ -19,6 +20,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   void toggleTimer(int time) {
     if (!_controller.isStarted) {
       _controller.restart(duration: time);
+      Wakelock.enable();
 
       setState(() {
         _controller.isStarted = true;
@@ -27,12 +29,14 @@ class _TimerWidgetState extends State<TimerWidget> {
       return;
     } else if (_controller.isResumed) {
       _controller.pause();
+      Wakelock.disable();
 
       setState(() {
         _controller.isResumed = false;
       });
     } else {
       _controller.resume();
+      Wakelock.enable();
 
       setState(() {
         _controller.isPaused = false;

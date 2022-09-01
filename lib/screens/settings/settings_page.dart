@@ -53,7 +53,6 @@ class _SettingsPageState extends State<SettingsPage> {
             const BooleanSettingsWidget(label: "Vibrate"),
             const BooleanSettingsWidget(label: "Autostart Breaks"),
             const BooleanSettingsWidget(label: "Autostart Pomodoro"),
-            const BooleanSettingsWidget(label: "Show Notifications"),
             const BooleanSettingsWidget(label: "Keep Phone Awake"),
           ],
         ),
