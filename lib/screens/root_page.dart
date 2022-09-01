@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_timer_flutter/providers/user_session_provider.dart';
 import 'package:pomodoro_timer_flutter/providers/user_settings_provider.dart';
 import 'package:pomodoro_timer_flutter/util/color_util.dart';
 import 'package:pomodoro_timer_flutter/components/menu_widget_anim.dart';
@@ -36,9 +37,13 @@ class _RootPageState extends State<RootPage> {
         child: Column(
           children: [
             AnimMenuWidget(onPress: togglePage),
-            MultiProvider(providers: [
-              ChangeNotifierProvider(create: (_) => UserSettings())
-            ], child: Expanded(child: pages[timerShown ? 0 : 1])),
+            MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => UserSettings()),
+                ChangeNotifierProvider(create: (_) => UserSession()),
+              ],
+              child: Expanded(child: pages[timerShown ? 0 : 1]),
+            ),
           ],
         ),
       ),
