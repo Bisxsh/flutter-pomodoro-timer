@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/widgets/boolean_settings_wdiget.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/widgets/color_grid/color_grid_widget.dart';
+import 'package:pomodoro_timer_flutter/screens/settings/widgets/color_grid/sub-widgets/section_heading.dart';
 import 'package:pomodoro_timer_flutter/screens/settings/widgets/int_settings_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
+            const SettingsSectionHeading(label: "Duration"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -45,7 +47,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
+            const SettingsSectionHeading(label: "Background Color"),
             const ColorGridWidget(),
+            const SettingsSectionHeading(label: "Other Preferences"),
             const BooleanSettingsWidget(label: "Vibrate"),
             const BooleanSettingsWidget(label: "Autostart Breaks"),
             const BooleanSettingsWidget(label: "Autostart Pomodoro"),
