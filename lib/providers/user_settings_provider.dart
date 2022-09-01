@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class UserSettings with ChangeNotifier {
-  int _pomodoroTime = 25, _breakTime = 5, _longBreakTime = 15;
+  //TODO testing values, revert
+  int _pomodoroTime = 1, _breakTime = 2, _longBreakTime = 4;
   String _selectedColor = '#4A4B4F';
   bool _vibrate = true,
       _autoStartBreaks = true,
