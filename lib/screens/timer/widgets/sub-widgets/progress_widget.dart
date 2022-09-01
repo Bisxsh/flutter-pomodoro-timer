@@ -19,7 +19,7 @@ class _ProgressWidgetState extends State<ProgressWidget> {
       for (int i = 0; i < 8; i++) {
         indicators.add(ProgressIndicator(
             active: (i < context.watch<UserSession>().pomodorosCompleted)));
-        if ((i + 1) % 4 == 0 && i != 0) {
+        if ((i + 1) % 4 == 0 && i != 0 && i != 7) {
           indicators
               .add(const ProgressIndicator(active: false, invisible: true));
         }
@@ -28,13 +28,10 @@ class _ProgressWidgetState extends State<ProgressWidget> {
       return indicators;
     }
 
-    return Container(
-      margin: const EdgeInsets.only(left: 27),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: getIndicators(),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: getIndicators(),
     );
   }
 }

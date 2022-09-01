@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/timer_mode_display.dart';
 import 'package:pomodoro_timer_flutter/util/color_util.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/progress_widget.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/timer_widget.dart';
@@ -12,7 +13,7 @@ class TimerDisplay extends StatelessWidget {
       color: HexColor.getBackgroundColor(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [TimerWidget(), ProgressWidget()],
+        children: const [TimerWidget(), ProgressWidget(), TimerModeDisplay()],
       ),
     );
   }
