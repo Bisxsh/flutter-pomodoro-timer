@@ -16,7 +16,7 @@ const List<String> COLORS = [
   '#3D525C',
   '#3D5C59',
   '#3D5C4D',
-  '#475C3D',
+  '#3D5C40',
   '#475C3D',
   '#4A4B4F',
 ];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_timer_flutter/util/color_util.dart';
 
 class UserSettings with ChangeNotifier {
   //TODO testing values, revert
@@ -13,7 +14,7 @@ class UserSettings with ChangeNotifier {
   int get pomodoroTime => _pomodoroTime;
   int get breakTime => _breakTime;
   int get longBreakTime => _longBreakTime;
-  String get selectedColor => _selectedColor;
+  Color get selectedColor => HexColor(_selectedColor);
   bool get vibrate => _vibrate;
   bool get autoStartBreaks => _autoStartBreaks;
   bool get autoStartPomodoro => _autoStartPomodoro;
