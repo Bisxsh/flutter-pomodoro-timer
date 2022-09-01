@@ -45,6 +45,7 @@ class _TimerWidgetState extends State<TimerWidget> {
     _controller.isResumed = autoStartNext;
     if (!autoStartNext) {
       _controller.pause();
+      _controller.isStarted = false;
     }
   }
 
