@@ -1,6 +1,8 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodoro_timer_flutter/providers/user_settings_provider.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/play_pause_widget.dart';
+import 'package:provider/provider.dart';
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key});
@@ -11,12 +13,11 @@ class TimerWidget extends StatefulWidget {
 
 class _TimerWidgetState extends State<TimerWidget> {
   String timeRemaining = "";
-  final int _startingTime = 30;
   final CountDownController _controller = CountDownController();
 
-  void toggleTimer() {
+  void toggleTimer(int time) {
     if (!_controller.isStarted) {
-      _controller.restart(duration: 30);
+      _controller.restart(duration: time);
 
       setState(() {
         _controller.isStarted = true;
@@ -52,10 +53,14 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    int pomodoroTime = context.watch<UserSettings>().pomodoroTime * 60;
+    int breakTime = context.watch<UserSettings>().breakTime * 60;
+    int longBreakTime = context.watch<UserSettings>().longBreakTime * 60;
+
     return Container(
       padding: const EdgeInsets.all(20),
       child: GestureDetector(
-        onTap: () => {toggleTimer()},
+        onTap: () => {toggleTimer(pomodoroTime)},
         onLongPress: () => {resetTimer()},
         child: Stack(
           alignment: Alignment.center,
@@ -67,9 +72,9 @@ class _TimerWidgetState extends State<TimerWidget> {
             CircularCountDownTimer(
               width: 250,
               height: 250,
-              duration: 30,
+              duration: pomodoroTime,
+              initialDuration: pomodoroTime,
               autoStart: false,
-              initialDuration: 30,
               fillColor: Colors.white,
               ringColor: Colors.grey,
               isReverse: true,
