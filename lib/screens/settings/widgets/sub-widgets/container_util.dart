@@ -23,7 +23,7 @@ class ContainerUtil {
     }
 
     return ConstrainedBox(
-      constraints: const BoxConstraints(minWidth: 110),
+      constraints: const BoxConstraints(minWidth: 100),
       child: Container(
         margin: EdgeInsets.all((removeMargin ?? false) ? 0 : 10.0),
         padding: const EdgeInsets.all(20.0),

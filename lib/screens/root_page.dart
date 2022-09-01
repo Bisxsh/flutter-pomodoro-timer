@@ -16,7 +16,6 @@ class _RootPageState extends State<RootPage> {
   List<Widget> pages = [const TimerPage(), const SettingsPage()];
 
   void togglePage() {
-    debugPrint("HERE");
     setState(() {
       timerShown = !timerShown;
     });
