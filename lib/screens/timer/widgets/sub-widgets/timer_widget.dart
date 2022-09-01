@@ -4,6 +4,7 @@ import 'package:pomodoro_timer_flutter/providers/user_session_provider.dart';
 import 'package:pomodoro_timer_flutter/providers/user_settings_provider.dart';
 import 'package:pomodoro_timer_flutter/screens/timer/widgets/sub-widgets/play_pause_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:vibration/vibration.dart';
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key});
@@ -58,6 +59,12 @@ class _TimerWidgetState extends State<TimerWidget> {
     return TimerMode.BREAK;
   }
 
+  void vibrate() async {
+    if (await Vibration.hasVibrator() ?? false) {
+      Vibration.vibrate(duration: 1000);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     UserSettings userSettings = context.watch<UserSettings>();
@@ -110,10 +117,12 @@ class _TimerWidgetState extends State<TimerWidget> {
                 // userSession.timeRemaining = timeStamp;
               },
               onComplete: () {
+                if (userSettings.vibrate) vibrate();
                 int newPomodorosCompleted = userSession.pomodorosCompleted;
                 if (mode == TimerMode.POMODORO) newPomodorosCompleted++;
                 TimerMode newMode =
                     getNextMode(userSession.mode, newPomodorosCompleted);
+
                 setState(() {
                   userSession.pomodorosCompleted = newPomodorosCompleted;
                   userSession.mode = newMode;

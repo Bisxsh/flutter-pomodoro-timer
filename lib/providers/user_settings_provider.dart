@@ -8,7 +8,6 @@ class UserSettings with ChangeNotifier {
   bool _vibrate = true,
       _autoStartBreaks = true,
       _autoStartPomodoro = false,
-      _showNotifications = true,
       _keepPhoneAwake = true;
 
   int get pomodoroTime => _pomodoroTime;
@@ -18,7 +17,6 @@ class UserSettings with ChangeNotifier {
   bool get vibrate => _vibrate;
   bool get autoStartBreaks => _autoStartBreaks;
   bool get autoStartPomodoro => _autoStartPomodoro;
-  bool get showNotifications => _showNotifications;
   bool get keepPhoneAwake => _keepPhoneAwake;
 
   set pomodoroTime(int value) {
@@ -53,11 +51,6 @@ class UserSettings with ChangeNotifier {
 
   set autoStartPomodoro(autoStartPomodoro) {
     _autoStartPomodoro = autoStartPomodoro;
-    notifyListeners();
-  }
-
-  set showNotifications(showNotifications) {
-    _showNotifications = showNotifications;
     notifyListeners();
   }
 

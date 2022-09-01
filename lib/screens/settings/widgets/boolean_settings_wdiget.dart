@@ -28,10 +28,6 @@ class BooleanSettingsWidget extends StatelessWidget {
           if (val != null) userSettings.autoStartPomodoro = val;
           return userSettings.autoStartPomodoro;
 
-        case "show notifications":
-          if (val != null) userSettings.showNotifications = val;
-          return userSettings.showNotifications;
-
         case "keep phone awake":
           if (val != null) userSettings.keepPhoneAwake = val;
           return userSettings.keepPhoneAwake;
