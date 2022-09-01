@@ -14,7 +14,7 @@ class ColourItemWidget extends StatelessWidget {
         height: 45,
         decoration:
             BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
-        margin: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(7),
       ),
     ];
 
